@@ -613,4 +613,6 @@ app.listen(PORT, () => {
   console.log(`Discord server running on ${PORT}`);
 });
 
-client.login(DISCORD_BOT_TOKEN);
+client.login(DISCORD_BOT_TOKEN)
+  .then(() => console.log("Login Discord lancé"))
+  .catch((err) => console.error("Erreur login Discord :", err));
