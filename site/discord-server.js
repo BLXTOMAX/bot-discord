@@ -613,12 +613,23 @@ app.listen(PORT, () => {
   console.log(`Discord server running on ${PORT}`);
 });
 
+client.on("ready", () => {
+  console.log(`Bot connecté en tant que ${client.user.tag}`);
+});
+
 client.on("error", (err) => console.error("Discord client error:", err));
 client.on("warn", (msg) => console.warn("Discord warn:", msg));
-process.on("unhandledRejection", (err) => console.error("Unhandled rejection:", err));
-process.on("uncaughtException", (err) => console.error("Uncaught exception:", err));
+client.on("shardError", (err) => console.error("Shard error:", err));
 
 console.log("TOKEN:", DISCORD_BOT_TOKEN ? "OK" : "MANQUANT");
+
+try {
+  const rest = new REST({ version: "10" }).setToken(DISCORD_BOT_TOKEN);
+  const me = await rest.get(Routes.user());
+  console.log("Token Discord valide pour :", me.username);
+} catch (err) {
+  console.error("Token Discord invalide ou refusé :", err);
+}
 
 client.login(DISCORD_BOT_TOKEN)
   .then(() => console.log("Login Discord lancé"))
