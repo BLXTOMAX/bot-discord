@@ -609,8 +609,8 @@ app.post("/order", async (req, res) => {
   }
 });
 
-await client.login(DISCORD_BOT_TOKEN);
-
 app.listen(PORT, () => {
   console.log(`Discord server running on ${PORT}`);
 });
+
+client.login(DISCORD_BOT_TOKEN);
