@@ -613,6 +613,11 @@ app.listen(PORT, () => {
   console.log(`Discord server running on ${PORT}`);
 });
 
+client.on("error", (err) => console.error("Discord client error:", err));
+client.on("warn", (msg) => console.warn("Discord warn:", msg));
+process.on("unhandledRejection", (err) => console.error("Unhandled rejection:", err));
+process.on("uncaughtException", (err) => console.error("Uncaught exception:", err));
+
 console.log("TOKEN:", DISCORD_BOT_TOKEN ? "OK" : "MANQUANT");
 
 client.login(DISCORD_BOT_TOKEN)
